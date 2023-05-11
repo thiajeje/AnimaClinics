@@ -7,11 +7,16 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType. IDENTITY )
     private Long id;
-    private String cpf;
     private String nome;
-    private String telefone;
-
+    private String cpf;
+    private String curso;
+    private String ra;
     private String endereco;
+    private String cep;
+    private String telefone;
+    private String email;
+    private String profissao;
+    private String codigo_conselho;
 
     @Transient
     private Integer idade;
@@ -65,4 +70,13 @@ public class Cliente {
     public void setIdade(Integer idade) {
         this.idade = idade;
     }
+
+    public String getCurso() {
+        return curso;
+    }
+
+    public void setCurso(String curso) {
+        this.curso = curso;
+    }
 }
+
