@@ -14,7 +14,7 @@ public class Pedido {
     private Double total;
 
     @ManyToOne
-    private  Cliente cliente;
+    private Usuario usuario;
 
     public Long getId() {
         return id;
