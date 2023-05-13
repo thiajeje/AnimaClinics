@@ -1,46 +1,54 @@
 package com.example.demo5.controllers;
 
-import com.example.demo5.domain.Usuario;
-import com.example.demo5.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.example.demo5.domain.Usuario;
+import com.example.demo5.services.interfaces.UsuarioServiceAPI;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/usuarios")
+@CrossOrigin()
 public class UsuarioController {
 
+    private final UsuarioServiceAPI userService;
+
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    public UsuarioController(UsuarioServiceAPI userService) {
+        this.userService = userService;
+    }
 
     @GetMapping
-    public List<Usuario> findAll() {
-        List<Usuario> usuarios = usuarioRepository.findAll();
-        return usuarios;
+    public HttpEntity<List<Usuario>> findAll() {
+        List<Usuario> users = userService.findAll();
+        return ResponseEntity.ok(users);
     }
 
     @GetMapping(value = "/{id}")
-    public Usuario get(@PathVariable(name = "id") Long id) {
-        Usuario usuario = usuarioRepository.findById(id).orElse(null);
-        return usuario;
+    public HttpEntity<Usuario> get(@PathVariable(name = "id") Long id) {
+        Usuario usuario = userService.get(id);
+        return ResponseEntity.ok(usuario);
     }
 
     @PostMapping
-    public Usuario create(@RequestBody Usuario usuario) {
-        usuario = usuarioRepository.save(usuario);
-        return usuario;
+    public HttpEntity<Usuario> create(@RequestBody Usuario usuario) {
+        usuario = userService.create(usuario);
+        return ResponseEntity.ok(usuario);
     }
 
     @PutMapping(value = "/{id}")
-    public void update(@PathVariable(name = "id") Long id,
-                       @RequestBody Usuario usuario) {
+    public HttpEntity<Usuario> update(@PathVariable(name = "id") Long id, @RequestBody Usuario usuario) {
         usuario.setId(id);
-        usuario = usuarioRepository.save(usuario);
+        userService.update(usuario);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping(value = "/{id}")
-    public void remove(@PathVariable(name = "id") Long id) {
-        usuarioRepository.deleteById(id);
+    public HttpEntity<Usuario> remove(@PathVariable(name = "id") Long id) {
+        userService.remove(id);
+        return ResponseEntity.ok().build();
     }
 }
