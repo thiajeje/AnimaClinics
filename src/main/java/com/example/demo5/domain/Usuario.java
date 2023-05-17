@@ -17,9 +17,8 @@ public class Usuario {
     private String email;
     private String profissao;
     private String codigo_conselho;
+    private String senha;
 
-    @Transient
-    private Integer idade;
 
     //sets e gets
 
@@ -63,14 +62,6 @@ public class Usuario {
         this.endereco = endereco;
     }
 
-    public Integer getIdade() {
-        return idade;
-    }
-
-    public void setIdade(Integer idade) {
-        this.idade = idade;
-    }
-
     public String getCurso() {
         return curso;
     }
@@ -112,6 +103,14 @@ public class Usuario {
 
     public void setCodigo_conselho(String codigo_conselho) {
         this.codigo_conselho = codigo_conselho;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 }
 

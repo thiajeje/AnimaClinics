@@ -16,10 +16,8 @@ public class Paciente {
     private String telefone;
     private String convenio;
     private String sexo;
-    private String photo;
+    private String foto;
 
-    @Transient
-    private Integer idade;
 
     //sets e gets
 
@@ -63,14 +61,6 @@ public class Paciente {
         this.endereco = endereco;
     }
 
-    public Integer getIdade() {
-        return idade;
-    }
-
-    public void setIdade(Integer idade) {
-        this.idade = idade;
-    }
-
     public String getData_nascimento() {
         return data_nascimento;
     }
@@ -109,12 +99,12 @@ public class Paciente {
 
     public void setSexo(String sexo) { this.sexo = sexo;}
 
-    public String getPhoto() {
-        return photo;
+    public String getFoto() {
+        return foto;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
 }
