@@ -1,54 +1,50 @@
 package com.example.demo5.Service;
 
 import com.example.demo5.domain.Usuario;
-import com.example.demo5.exceptions.UsuarioNotFoundException;
 import com.example.demo5.repositories.UsuarioRepository;
+import com.example.demo5.services.interfaces.UsuarioServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.demo5.services.interfaces.UsuarioServiceAPI;
-import org.springframework.transaction.annotation.Transactional;
-
 
 import java.util.List;
 
 @Service
 public class UsuarioService implements UsuarioServiceAPI {
 
-    private final UsuarioRepository repository;
+    private final UsuarioRepository usuarioRepository;
 
     @Autowired
-    public UsuarioService(UsuarioRepository repository) {
-        this.repository = repository;
+    public UsuarioService(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Usuario get(Long id) {
-        return repository.findById(id)
-                .orElseThrow(()-> new UsuarioNotFoundException("Produto não encontrado"));
+        return usuarioRepository.findById(id).orElse(null);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Usuario> findAll() {
-        return repository.findAll();
+        return usuarioRepository.findAll();
     }
 
     @Override
-    @Transactional(readOnly = false)
     public Usuario create(Usuario usuario) {
-        return repository.save(usuario);
+        return usuarioRepository.save(usuario);
     }
 
     @Override
-    @Transactional(readOnly = false)
     public void update(Usuario usuario) {
-        repository.save(usuario);
+        usuarioRepository.save(usuario);
     }
 
     @Override
-    @Transactional(readOnly = false)
     public void remove(Long id) {
-        repository.deleteById(id);
+        usuarioRepository.deleteById(id);
+    }
+
+    @Override
+    public Usuario findByEmail(String email) {
+        return usuarioRepository.findByEmail(email);
     }
 }
