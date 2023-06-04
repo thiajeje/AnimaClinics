@@ -62,14 +62,14 @@ public class UsuarioController {
 
     @PostMapping("/login")
     @PermitAll
-    public ResponseEntity<String> login(@RequestBody Usuario usuario) {
+    public ResponseEntity<Usuario> login(@RequestBody Usuario usuario) {
         Usuario existingUsuario = userService.findByEmail(usuario.getEmail());
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if (existingUsuario != null && passwordEncoder.matches(usuario.getSenha(), existingUsuario.getSenha())) {
-            return ResponseEntity.ok("Login efetuado com sucesso!");
+            return ResponseEntity.ok(existingUsuario);
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("E-mail ou senha inválido!");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
     }
 }
