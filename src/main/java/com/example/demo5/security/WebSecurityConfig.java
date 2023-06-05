@@ -15,6 +15,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/usuarios").permitAll()
                 .antMatchers("/usuarios/login").permitAll()
                 .antMatchers("/agendamentos").permitAll()
+                .antMatchers("/pacientes").permitAll()
+
                 .anyRequest().authenticated();
 
         httpSecurity.headers().frameOptions().disable();
