@@ -1,10 +1,12 @@
 package com.example.demo5.Service;
 
 import com.example.demo5.domain.Agendamento;
+import com.example.demo5.domain.Usuario;
 import com.example.demo5.repositories.AgendamentoRepository;
 import com.example.demo5.services.interfaces.AgendamentoServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,9 +21,15 @@ public class AgendamentoService implements AgendamentoServiceAPI {
     }
 
     @Override
+    @Transactional
     public Agendamento criarAgendamento(Agendamento agendamento) {
         // Lógica para criar um novo agendamento
-        return agendamentoRepository.save(agendamento);
+        agendamento = agendamentoRepository.save(agendamento);
+        return agendamentoRepository.findById(agendamento.getId()).orElse(null);
+    }
+    @Override
+    public Agendamento get(Long id) {
+        return agendamentoRepository.findById(id).orElse(null);
     }
 
     @Override

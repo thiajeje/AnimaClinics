@@ -1,9 +1,6 @@
 package com.example.demo5.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Agendamento {
@@ -13,19 +10,24 @@ public class Agendamento {
     private Long id;
 
     private Long id_criador;
-    private Long id_medico;
-    private Long id_paciente;
+
     private String data;
     private String hora;
     private String status;
 
+    @ManyToOne
+    @JoinColumn(name = "id_paciente")
+    private Paciente paciente;
+
+    @ManyToOne
+    @JoinColumn(name = "id_medico", referencedColumnName = "id")
+    private Usuario usuario;
+
     public Agendamento() {
     }
 
-    public Agendamento(Long id_criador, Long id_medico, Long id_paciente, String data, String hora, String status) {
+    public Agendamento(Long id_criador, String data, String hora, String status) {
         this.id_criador = id_criador;
-        this.id_medico = id_medico;
-        this.id_paciente = id_paciente;
         this.data = data;
         this.hora = hora;
         this.status = status;
@@ -49,20 +51,20 @@ public class Agendamento {
         this.id_criador = id_criador;
     }
 
-    public Long getId_paciente() {
-        return id_paciente;
+    public Paciente getPaciente() {
+        return paciente;
     }
 
-    public void setId_paciente(Long id_paciente) {
-        this.id_paciente = id_paciente;
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 
-    public Long getId_medico() {
-        return id_medico;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setId_medico(Long id_medico) {
-        this.id_medico = id_medico;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public String getData() {

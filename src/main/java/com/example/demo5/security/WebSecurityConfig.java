@@ -13,10 +13,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable().authorizeRequests()
                 .antMatchers("/usuarios").permitAll()
-                .antMatchers("/usuarios/login").permitAll()
+                .antMatchers("/usuarios/*").permitAll()
                 .antMatchers("/agendamentos").permitAll()
+                .antMatchers("/agendamentos/*").permitAll()
                 .antMatchers("/pacientes").permitAll()
-
                 .anyRequest().authenticated();
 
         httpSecurity.headers().frameOptions().disable();
