@@ -1,6 +1,9 @@
 package com.example.demo5.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Agendamento {
@@ -10,9 +13,9 @@ public class Agendamento {
     private Long id;
 
     private Long id_criador;
-
-    private String data;
-    private String hora;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT-3")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataHora;
     private String status;
 
     @ManyToOne
@@ -26,10 +29,9 @@ public class Agendamento {
     public Agendamento() {
     }
 
-    public Agendamento(Long id_criador, String data, String hora, String status) {
+    public Agendamento(Long id_criador, Date dataHora, String status) {
         this.id_criador = id_criador;
-        this.data = data;
-        this.hora = hora;
+        this.dataHora = dataHora;
         this.status = status;
     }
 
@@ -67,20 +69,12 @@ public class Agendamento {
         this.usuario = usuario;
     }
 
-    public String getData() {
-        return data;
+    public Date getDataHora() {
+        return dataHora;
     }
 
-    public void setData(String data) {
-        this.data = data;
-    }
-
-    public String getHora() {
-        return hora;
-    }
-
-    public void setHora(String hora) {
-        this.hora = hora;
+    public void setDataHora(Date dataHora) {
+        this.dataHora = dataHora;
     }
 
     public String getStatus() {

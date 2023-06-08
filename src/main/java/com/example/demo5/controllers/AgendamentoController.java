@@ -1,5 +1,6 @@
 package com.example.demo5.controllers;
 
+import com.example.demo5.controllers.representations.AgendamentoConsulta;
 import com.example.demo5.domain.Agendamento;
 import com.example.demo5.domain.Usuario;
 import com.example.demo5.services.interfaces.AgendamentoServiceAPI;
@@ -34,6 +35,12 @@ public class AgendamentoController {
         return ResponseEntity.ok(agendamento);
     }
 
+    @PostMapping(value = "/consulta")
+    public HttpEntity<List<Agendamento>> consulta(@RequestBody AgendamentoConsulta params) {
+        List <Agendamento> agendamentos = agendamentoService.findBy(params.getPacienteId(), params.getMedicoId(), params.getDataHora(), params.getStatus());
+        return ResponseEntity.ok(agendamentos);
+    }
+
 
     @PostMapping
     public ResponseEntity<?> criarAgendamento(@RequestBody Agendamento agendamento) {
@@ -41,7 +48,7 @@ public class AgendamentoController {
             Agendamento novoAgendamento = agendamentoService.criarAgendamento(agendamento);
             return ResponseEntity.status(HttpStatus.CREATED).body(novoAgendamento);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao criar agendamento.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 }
