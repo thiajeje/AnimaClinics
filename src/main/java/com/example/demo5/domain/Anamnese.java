@@ -71,6 +71,7 @@ public class Anamnese {
     private String informacoesRelevantes;
 
     @ManyToOne
+    @JoinColumn(name = "id_paciente")
     private Paciente paciente;
 
     //sets e gets

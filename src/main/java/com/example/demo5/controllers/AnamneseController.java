@@ -1,6 +1,7 @@
 package com.example.demo5.controllers;
 
 import com.example.demo5.domain.Anamnese;
+import com.example.demo5.domain.Paciente;
 import com.example.demo5.domain.Usuario;
 import com.example.demo5.services.interfaces.AnamneseServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,12 @@ public class AnamneseController {
     public HttpEntity<Anamnese> get(@PathVariable(name = "id") Long id) {
         Anamnese anamnese = anamneseService.get(id);
         return ResponseEntity.ok(anamnese);
+    }
+
+    @GetMapping
+    public HttpEntity<List<Anamnese>> findAll() {
+        List<Anamnese> paciente = anamneseService.findAll();
+        return ResponseEntity.ok(paciente);
     }
 
     @PostMapping

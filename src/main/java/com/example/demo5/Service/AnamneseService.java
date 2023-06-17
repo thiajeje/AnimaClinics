@@ -1,13 +1,10 @@
 package com.example.demo5.Service;
 
 import com.example.demo5.domain.Anamnese;
-import com.example.demo5.domain.Paciente;
+
 import com.example.demo5.exceptions.AnamneseNotFoundException;
-import com.example.demo5.exceptions.PacienteNotFoundException;
 import com.example.demo5.repositories.AnamneseRepository;
-import com.example.demo5.repositories.PacienteRepository;
 import com.example.demo5.services.interfaces.AnamneseServiceAPI;
-import com.example.demo5.services.interfaces.PacienteServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +21,10 @@ public class AnamneseService implements AnamneseServiceAPI {
         this.repository = repository;
     }
 
+    @Override
+    public List<Anamnese> findAll() {
+        return repository.findAll();
+    }
     @Override
     @Transactional(readOnly = true)
     public Anamnese get(Long id) {
